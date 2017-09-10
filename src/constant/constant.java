@@ -32,4 +32,8 @@ public interface constant {
 	 * 新闻分类的bean，包括这个分类和他的一级子类
 	 */
 	String NEWSTYPEBEAN = "newsTypeBean";
+	/**
+	 * 图片新闻的每页条数
+	 */
+	int NEWSPIC_PAGESIZE =5;
 }

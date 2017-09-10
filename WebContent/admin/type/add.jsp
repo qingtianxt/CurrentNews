@@ -71,7 +71,7 @@ function addType(obj) {
 					</label>
 					<div class="col-md-10">
 						<input class="form-control" name="name" type="text" id="name"
-							placeholder="classifyname" value="${productTypeBean.name}" />
+							placeholder="classifyname" value="${newsTypeBean.name}" />
 					</div>
 				</div>
 				<div class="form-group col-md-12" id="types">
@@ -93,11 +93,11 @@ function addType(obj) {
 					</label>
 					<div class="col-md-10">
 						<input class="form-control" name="intro" type="text" id="desc"
-							placeholder="分类描述" value="${productTypeBean.intro}" />
+							placeholder="分类描述" value="${newsTypeBean.intro}" />
 					</div>
 				</div>
 				<!-- 隐藏的，id属性为0时是 添加，否则是修改 -->
-				<input type="hidden" name="id" id="id" value="${productTypeBean.id}">
+				<input type="hidden" name="id" id="id" value="${newsTypeBean.id}">
 				<div class="form-group"></div>
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-10">

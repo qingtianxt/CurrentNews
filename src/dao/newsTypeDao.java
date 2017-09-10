@@ -43,5 +43,26 @@ public class newsTypeDao {
 		String sql = "select * from newsType where id = ?";
 		return qr.query(sql, new BeanHandler<>(newsType.class),id);
 	}
+	/**
+	 * 更新分类
+	 * @param n
+	 * @return
+	 * @throws SQLException 
+	 */
+	public Object update(newsType n) throws SQLException {
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "update newsType set name='"+n.getName()+"',parentId='"+n.getParentId()+"',intro='"+n.getIntro()+"' where id='"+n.getId()+"'";
+		return qr.update(sql);
+	}
+	/**
+	 * 删除一个分类
+	 * @param id
+	 * @throws SQLException 
+	 */
+	public void delete(int id) throws SQLException {
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "delete from newsType where id = ?;";
+		qr.update(sql,id);
+	}
 
 }

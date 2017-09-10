@@ -49,6 +49,8 @@ public class NewsTypeServlet extends BaseServlet {
 		return "/admin/type/add.jsp";
 	}
 	public String add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String status = request.getParameter("status");
+		
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String[] parId = request.getParameterValues("parentId");
@@ -66,6 +68,7 @@ public class NewsTypeServlet extends BaseServlet {
 		if("".equals(id)){//添加分类
 			n.setCreate_date(DateUtils.getDate());
 			try {
+				
 				ns.add(n);
 				request.setAttribute("msg", "添加成功");
 				System.out.println("添加分类成功");
@@ -76,10 +79,24 @@ public class NewsTypeServlet extends BaseServlet {
 				System.out.println("添加失败");
 				e.printStackTrace();
 			}
+			return "/admin/type/add.jsp";
 		}else{//修改分类
+			n.setId(StringUtil.StringToInt(id));
 			
+			
+			try {
+				ns.update(n);
+				if("1".equals(status)){
+					request.setAttribute("msg", "修改成功");
+				}
+				System.out.println("修改成功，被修改的分类id是"+id);
+			} catch (SQLException e) {
+				System.out.println("修改失败");
+				e.printStackTrace();
+			}
+			response.sendRedirect(request.getContextPath()+"/newsType?method=list&id=0");
 		}
-		return "/admin/type/add.jsp";
+		return null;
 	}
 	/**
 	 * 获取一个分类的子分类
@@ -123,6 +140,34 @@ public class NewsTypeServlet extends BaseServlet {
 			e.printStackTrace();
 			System.out.println("获取失败");
 		}
-		return "/admin/type/list.jsp";
+		return "/admin/type/list.jsp?status=1";
+	}
+	public String updateUI(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = StringUtil.StringToInt( request.getParameter("id"));
+		newsTypeService ns  = new newsTypeService();
+		try {
+			newsType n = ns.getById(id);
+			System.out.println("更新：获取需要更新的分类的信息，需要更新的id是"+id);
+			request.setAttribute(constant.NEWSTYPEBEAN, n);
+			List<newsType> list = ns.getByParentId(0);
+			request.setAttribute(constant.NEWSTYPE_LIST, list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("更新失败");
+		}
+		return "/admin/type/add.jsp";
+	}
+	public String delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = StringUtil.StringToInt( request.getParameter("id"));
+		newsTypeService ns = new newsTypeService();
+		try {
+			ns.delete(id);
+			System.out.println("删除分类id为"+id+"的分类成功");
+			response.sendRedirect(request.getContextPath()+"/newsType?method=list&id=0");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("删除失败");
+		}
+		return null;
 	}
 }
