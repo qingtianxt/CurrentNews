@@ -14,10 +14,18 @@ public class newsPic implements Serializable{
 	private String username;
 	
 	private String info;
-
+	private String newsType_id;
+	private String publish_date;
 	public newsPic() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "newsPic [id=" + id + ", title=" + title + ", publisher=" + publisher + ", pic=" + pic + ", create_date="
+				+ create_date + ", username=" + username + ", info=" + info + ", newsType_id=" + newsType_id
+				+ ", publish_date=" + publish_date + "]";
 	}
 
 	public Integer getId() {
@@ -65,14 +73,25 @@ public class newsPic implements Serializable{
 		return username;
 	}
 
-	@Override
-	public String toString() {
-		return "newsPic [id=" + id + ", title=" + title + ", publisher=" + publisher + ", pic=" + pic + ", create_date="
-				+ create_date + ", username=" + username + ", info=" + info + "]";
-	}
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getPublish_date() {
+		return publish_date;
+	}
+
+	public void setPublish_date(String publish_date) {
+		this.publish_date = publish_date;
+	}
+
+	public String getNewsType_id() {
+		return newsType_id;
+	}
+
+	public void setNewsType_id(String newsType_id) {
+		this.newsType_id = newsType_id;
 	}
 
 	public String getInfo() {

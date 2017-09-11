@@ -9,7 +9,6 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import domain.adminUser;
-import domain.pageBean;
 import utils.DataSourceUtils;
 
 public class adminUserDao {

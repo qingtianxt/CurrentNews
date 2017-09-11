@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商品展示</title>
+<title>新闻展示</title>
 <script
 	src="${pageContext.request.contextPath}/static/js/jquery-1.12.1.js"></script>
 <link rel="stylesheet"
@@ -18,36 +18,42 @@
 </head>
 <body>
 	<div class="container">
-		<h1>商品查询</h1>
+		<h1>新闻查询</h1>
 		<table class="table table-striped">
-			<c:forEach items="${productBeans}" var="item" varStatus="status">
+			<c:forEach items="${newsPic_beans}" var="item" varStatus="status">
 				<c:if test="${status.index==0 }">
 					<!-- <ol class="breadcrumb" id="index0">
 					</ol>
 					<script>showIndex();</script> -->
 					<tr>
 						<td>id</td>
-						<td>name</td>
+						<td>标题</td>
+						<td>发布人</td>
+						<td>发布的账户名</td>
+						<td>发布日期</td>
 						<td>操作</td>
 						<td>操作</td>
 					</tr>
 				</c:if>
 				<tr>
 					<td>${item.id }</td>
-					<td><a href="${pageContext.request.contextPath }/product?method=listDetails&id=${item.id }">${item.name}</a></td>
-					<td><a href="${pageContext.request.contextPath }/product?method=update&id=${item.id }">修改
+					<td><a href="${pageContext.request.contextPath }/newsPic?method=listDetails&id=${item.id }">${item.title}</a></td>
+					<td>${item.publisher }</td>
+					<td>${item.username }</td>
+					<td>${item.create_date }</td>
+					<td><a href="${pageContext.request.contextPath }/newsPic?method=updateUI&id=${item.id }">修改
 					</a></td>
 					<td><a href="javascript:void(0)" onclick="delete1('${item.id}')">删除
 					</a></td>
 				</tr>
 			</c:forEach>
 		</table>
-		<util:page pagingBean="${pagingBean }"/>
+		<util:page pagingBean="${newsPic_pageBean }"/>
 	</div>
 	<script type="text/javascript">
 		function delete1(id){
 			if(confirm("你确定要删除吗")){
-				location.href="${pageContext.request.contextPath }/product?method=delete&id="+id;
+				location.href="${pageContext.request.contextPath }/newsPic?method=delete&id="+id;
 			}
 		}
 	</script>

@@ -36,4 +36,16 @@ public interface constant {
 	 * 图片新闻的每页条数
 	 */
 	int NEWSPIC_PAGESIZE =5;
+	/**
+	 * 图片新闻pagingBean
+	 */
+	String NEWSPIC_PAGEBEAN = "newsPic_pageBean";
+	/**
+	 * 图片新闻 Beans
+	 */
+	String NEWSPIC_BEANS = "newsPic_beans";
+	/**
+	 * 图片新闻 Bean
+	 */
+	String NEWSPIC_BEAN = "newsPic_bean";
 }

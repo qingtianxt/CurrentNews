@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商品详情</title>
+<title>新闻详情</title>
 <script
 	src="${pageContext.request.contextPath}/static/js/jquery-1.12.1.js"></script>
 <link rel="stylesheet"
@@ -20,50 +20,27 @@
 </head>
 <body>
 	<div class="container">
-		<h1>商品详情</h1>
+		<h1>新闻详情</h1>
 		<div class="col-md-12">
-			<img class="img-rounded" alt="商品图片" src="${pageContext.request.contextPath }/${productBean.pic}" />
+			<img class="img-rounded" alt="新闻图片" src="${pageContext.request.contextPath }/${newsPic_bean.pic}" />
 		</div>
 		<table class="table table-striped">
 			<tr>
-				<td>商品名称</td>
-				<td>${productBean.name}</td>
+				<td>新闻标题</td>
+				<td>${newsPic_bean.title}</td>
 			</tr>
 			<tr>
-				<td>商品分类 ID</td>
-				<td>${productBean.product_type_id}</td>
-			</tr>
-			<tr>
-				<td>商品原价</td>
-				<td>${productBean.original_price}</td>
-			</tr>
-			<tr>
-				<td>商品现价</td>
-				<td>${productBean.price}</td>
-			</tr>
-			<tr>
-				<td>商品总量</td>
-				<td>${productBean.number}</td>
-			</tr>
-			<tr>
-				<td>商品已售数量</td>
-				<td>${productBean.sell_number}</td>
+				<td>新闻发布人</td>
+				<td>${newsPic_bean.publisher}</td>
 			</tr>
 			<tr>
 				<td>创建时间</td>
-				<td>${productBean.create_date}</td>
+				<td>${newsPic_bean.create_date}</td>
 			</tr>
-			<c:forEach items="${productBean.productOptionBeans}" var="item"
-				varStatus="status">
-				<tr>
-					<td>${item.productPropertyBean.name}</td>
-					<td>${item.name}</td>
-				</tr>
-			</c:forEach>
 		</table>
 		<article>
-		<h3>商品介绍</h3>
-		${productBean.intro} </article>
+		<h3>新闻内容</h3>
+		${newsPic_bean.info} </article>
 	</div>
 </body>
 </html>
