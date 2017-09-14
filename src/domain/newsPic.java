@@ -14,8 +14,20 @@ public class newsPic implements Serializable{
 	private String username;
 	
 	private String info;
-	private String newsType_id;
+	private int newsType_id;
 	private String publish_date;
+	
+	private newsType newsType;
+	
+
+	public newsType getNewsType() {
+		return newsType;
+	}
+
+	public void setNewsType(newsType newsType) {
+		this.newsType = newsType;
+	}
+
 	public newsPic() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -86,11 +98,12 @@ public class newsPic implements Serializable{
 		this.publish_date = publish_date;
 	}
 
-	public String getNewsType_id() {
+
+	public int getNewsType_id() {
 		return newsType_id;
 	}
 
-	public void setNewsType_id(String newsType_id) {
+	public void setNewsType_id(int newsType_id) {
 		this.newsType_id = newsType_id;
 	}
 

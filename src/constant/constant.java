@@ -48,4 +48,37 @@ public interface constant {
 	 * 图片新闻 Bean
 	 */
 	String NEWSPIC_BEAN = "newsPic_bean";
+	/**
+	 * session域中的user
+	 */
+	String SESSION_USER = "session_user";
+	/**
+	 * 用户分页，每页条数
+	 */
+	int USER_PAGESIZE =3;
+	/**
+	 * 用户分页pagingBean
+	 */
+	String USER_PAGINGBEAN = "user_pagingBean";
+	/**
+	 * 用户beans
+	 */
+	String USER_BEANS = "user_Beans";
+	
+	/**
+	 * 单个用户信息bean
+	 */
+	String USER_BEAN ="user_bean";
+	/**
+	 * 图片新闻根据分类分页获取时每页的条数
+	 */
+	int NEWS_TYPE_PAGESIZE =4;
+	/**
+	 * 今日新闻前四条
+	 */
+	String TODAYNEWS ="todayNews";
+	/**
+	 * 国际新闻前四条
+	 */
+	String WORLDNEWS ="worldNews";
 }

@@ -29,6 +29,10 @@
 				<td>新闻标题</td>
 				<td>${newsPic_bean.title}</td>
 			</tr>
+				<tr>
+				<td>分类</td>
+				<td>${newsPic_bean.newsType.name}</td>
+			</tr>
 			<tr>
 				<td>新闻发布人</td>
 				<td>${newsPic_bean.publisher}</td>
@@ -36,6 +40,10 @@
 			<tr>
 				<td>创建时间</td>
 				<td>${newsPic_bean.create_date}</td>
+			</tr>
+			<tr>
+				<td>发布时间</td>
+				<td>${newsPic_bean.publish_date}</td>
 			</tr>
 		</table>
 		<article>

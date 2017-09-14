@@ -35,11 +35,19 @@ public class newsPicDao {
 		String sql = "select count(*) from newsPic";
 		return (int) qr.query(sql, new ScalarHandler());
 	}
-
+/**
+ * 分页时需要注意top和order by
+ * @param currPage
+ * @param pageSize
+ * @return
+ * @throws SQLException
+ */
 	public List<newsPic> getByPage(int currPage, int pageSize) throws SQLException {
 		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
-		String sql = "select top " + pageSize + " * from newsPic where id not in(select top "
-				+ (currPage - 1) * pageSize + " id from newsPic)";
+		/*String sql = "select * from( select top " + pageSize + " * from ( select top "
+				+ (currPage - 1) * pageSize + " * from newsPic order by publish_date desc) as t1 order by publish_date desc) as t2 order by publish_date desc ";
+		System.out.println(sql);*/
+		String sql ="select top "+pageSize+" * from newsPic where id not in(select top "+(currPage-1)*pageSize+" id from newsPic order by publish_date desc) order by publish_date desc";
 		return qr.query(sql, new BeanListHandler<>(newsPic.class));
 	}
 
@@ -78,5 +86,17 @@ public class newsPicDao {
 		String sql = "delete from newsPic where id = ?";
 		qr.update(sql,id);
 	}
+/**
+ * 
+ * 根据图片新闻的分类删除图片新闻
+ * @param id
+ * @throws SQLException 
+ */
+	public void deleteByTypeId(int id) throws SQLException {
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "delete from newsPic where newsType_id =?";
+		qr.update(sql,id);
+	}
+
 
 }

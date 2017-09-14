@@ -43,7 +43,7 @@ public class PageTag extends SimpleTagSupport {
 				
 			}else{
 				//当前页不是第一页，则首页和上一页可以点击
-				buffer.append("<li><a href='").append(pagingBean.getPrefixUrl()).append("&currPage=1")
+				buffer.append("<li><a href='").append(pagingBean.getPrefixUrl()).append(pagingBean.isAnd() ? "&" : "?").append("currPage=1")
 				.append("'aria-label='Previous'><span aria-hidde='true'>首页</span></a></li>");
 				buffer.append("<li><a href='").append(pagingBean.getPrefixUrl()).append(pagingBean.isAnd() ? "&" : "?")//选择运算符，当isand（）为真时用&，否则用？
 				

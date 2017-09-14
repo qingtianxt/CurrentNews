@@ -98,6 +98,9 @@ function createCode()
 							登录</button>
 					</div>
 				</div>
+				<div class="form-group">
+					<a href="javascript:void(0)" onclick="test()">管理员登录</a>
+				</div>
 				<c:if test="${param.status.equals('1')}">
 					<div class="alert alert-danger" role="alert">用户名不存在</div>
 				</c:if>
@@ -111,7 +114,25 @@ function createCode()
 		</div>
 		<div class="col-md-4"></div>
 	</div>
+	<script type="text/javascript">
+		function test(){
+			layer.prompt({
+                title:'管理员登录 ，输入密码',
+                closeBtn:2,
+                btn:['确认','取消'],
+            },function(val,index,elem){
+            	if(val==1){
+            		location.href="${pageContext.request.contextPath}/";
+            	}else{
+            		layer.msg('尼玛，密码错误', {icon: 4});
+            	}
+            })
+		}
+		
+	</script>
+	
 	<script src="${pageContext.request.contextPath}/static/js/jquery-1.12.1.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/layer/layer.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/static/bootstrap-3.3.5-dist/js/bootstrap.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/static/js/jquery.validate.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/static/js/myValidate.js" type="text/javascript"></script>

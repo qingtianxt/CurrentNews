@@ -149,8 +149,18 @@ $(document).ready(function() {
 			<div class="menuList">
 				<div> <a target="mainAction" href="${pageContext.request.contextPath}/newsPic?method=addUI">图片新闻</a></div>
 				<div> <a target="mainAction" href="${pageContext.request.contextPath}/newsPic?method=listByPage&currPage=1">图片新闻管理</a></div>
-				<div> <a target="mainAction" href="${pageContext.request.contextPath}/news?method=addUI">新闻信息添加</a></div>
-				<div> <a target="mainAction" href="${pageContext.request.contextPath}/news?method=listUI">新闻管理</a></div>
+			</div>
+		</div>
+		<div class="menuParent">
+			<div class="ListTitlePanel">
+				<div class="ListTitle">
+					<strong>用户管理</strong>
+					<div class="leftbgbt2"> </div>
+				</div>
+			</div>
+			<div class="menuList">
+				<div> <a target="mainAction" href="${pageContext.request.contextPath}/user?method=listByPage&currPage=1">用户管理</a></div>
+				<div> <a target="mainAction" href="${pageContext.request.contextPath}/user?method=blockUserUI">冻结账号</a></div>
 			</div>
 		</div>
 		

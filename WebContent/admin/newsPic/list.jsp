@@ -28,6 +28,7 @@
 					<tr>
 						<td>id</td>
 						<td>标题</td>
+						<td>分类</td>
 						<td>发布人</td>
 						<td>发布的账户名</td>
 						<td>发布日期</td>
@@ -38,9 +39,10 @@
 				<tr>
 					<td>${item.id }</td>
 					<td><a href="${pageContext.request.contextPath }/newsPic?method=listDetails&id=${item.id }">${item.title}</a></td>
+					<td>${item.newsType.name }</td>
 					<td>${item.publisher }</td>
 					<td>${item.username }</td>
-					<td>${item.create_date }</td>
+					<td>${item.publish_date }</td>
 					<td><a href="${pageContext.request.contextPath }/newsPic?method=updateUI&id=${item.id }">修改
 					</a></td>
 					<td><a href="javascript:void(0)" onclick="delete1('${item.id}')">删除

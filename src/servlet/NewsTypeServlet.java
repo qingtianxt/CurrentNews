@@ -170,4 +170,19 @@ public class NewsTypeServlet extends BaseServlet {
 		}
 		return null;
 	}
+	public String getByCache(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		newsTypeService ns = new newsTypeService();
+		try {
+			List<newsType> list = ns.getByCache();//通过缓存技术获取最高级的新闻分类
+			response.setCharacterEncoding("utf-8");
+			PrintWriter out = response.getWriter();
+			out.println(JSONArray.toJSONString(list));
+			out.flush();
+			out.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }

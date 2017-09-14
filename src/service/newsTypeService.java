@@ -3,6 +3,7 @@ package service;
 import java.sql.SQLException;
 import java.util.List;
 
+import dao.newsPicDao;
 import dao.newsTypeDao;
 import domain.newsType;
 import net.sf.ehcache.Cache;
@@ -25,7 +26,7 @@ public class newsTypeService {
 		//创建缓存管理器
 		CacheManager c = CacheManager.create(newsTypeService.class.getClassLoader().getResourceAsStream("ehcache.xml"));
 		Cache cache = c.getCache("newsType");
-		cache.remove("nlist");
+		cache.remove("clist");
 		nd.add(n);
 	}
 
@@ -90,6 +91,10 @@ public class newsTypeService {
 				delete(c.getId());
 			}
 		}
+		//删除这个分类下的所有图片新闻
+		newsPicDao ns =new newsPicDao();
+		ns.deleteByTypeId(id);
+		
 		//删除这个分类
 		nd.delete(id);
 		CacheManager c = CacheManager.create(newsTypeService.class.getClassLoader().getResourceAsStream("ehcache.xml"));

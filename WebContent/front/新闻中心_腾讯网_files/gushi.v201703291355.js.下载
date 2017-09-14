@@ -1,0 +1,199 @@
+/**
+ *
+ * @authors WFE_jackiejiang (jackiejiang@tencent.com)
+ * @date    2015-10-26 21:16 by jianminlu
+ */
+
+var un=0;
+
+setTimeout(function(){
+
+  $(function(){
+
+    var  cookie = {
+        //写ookies
+        setCookie: function (name, value, days){
+            var  exp =  new  Date();
+            days = days || 365;
+            exp.setTime(exp.getTime() + days*24*60*60*1000);
+            document.cookie = name +  "=" + escape (value) +  ";expires="  + exp.toGMTString();
+        },
+
+        //读取cookies
+        getCookie: function (name){
+            var  arr,reg= new  RegExp( "(^| )" +name+ "=([^;]*)(;|$)" );
+            if (arr=document.cookie.match(reg))
+                return  unescape(arr[2]);
+            else
+                return  '' ;
+        },
+
+        //删除cookies
+        delCookie: function (name)
+        {
+            var  exp =  new  Date();
+            exp.setTime(exp.getTime() - 1);
+            var  cval= cookie.getCookie(name);
+            if (cval!== null ) document.cookie= name +  "=" +cval+ ";expires=" +exp.toGMTString();
+        }
+    }
+
+    if(cookie.getCookie('uin') && cookie.getCookie('skey')){
+
+      if(!un){
+        $.getScript('//mat1.gtimg.com/news/2017news/index/js/q_final_v20170815.js?' + Math.random(), function () {
+            //do magic
+            __.app.qindex.pStock.init();
+
+        });
+        un=un+1;
+
+      }else{
+
+        $.getScript('//mat1.gtimg.com/news/2017news/index/js/q_final_v20170815.js' + Math.random(), function () {
+            //do magic
+
+            __.app.qindex.pStock.init();
+
+        });
+
+      }
+
+    }else{
+      $.getScript('//mat1.gtimg.com/news/2017news/index/js/q_final_v20170815.js?' + Math.random(), function () {
+          //do magic
+
+          __.app.qindex.pStock.init();
+
+      });
+    }
+
+
+    var isGetSz = true;
+    var isGetGg = true;
+    var isGetMg = true;
+    var getNum = 0;
+
+    $('#qq-tabs1 li').bind('mouseover',function(index){
+      var _this = $(this);
+      var curIndex = $(this).index();
+      if(curIndex == 0){getSz();}
+      if(curIndex == 1){getGg();}
+      if(curIndex == 2){getMg();}
+      _this.addClass('selected').attr("aria-selected","true").attr("tabindex","0").siblings().removeClass('selected').attr("aria-selected","false").attr("tabindex","-1");
+      $('#qq-contents1 .tabpanel').eq(curIndex).attr("aria-selected","false").attr("tabindex","0").show().siblings('.tabpanel').hide().attr("aria-hidden","true").attr("tabindex","-1");
+      getNum++;
+    });
+
+    // 上证
+    function getSz(){
+      // var url = 'http://stock.gtimg.cn/data/index.php?appn=rank&t=ranka/chr&p=1&o=0&l=6&v=d1';
+      var url = 'https://proxyplus.finance.qq.com/webifzqgtimg/appstock/rank/ranking/rank?t=ranka/chr&p=1&o=0&l=7&v=d1&_var=d1';
+      var url2 = 'https://qt.finance.qq.com/r=123&q=';
+      if(getNum%2==0){
+        if(isGetSz){
+          $.getScript(url,function(){
+            var stockHtml = '';
+            var szData = d1.data.data;
+            var szDataArr = szData.split(',');
+            var szDataLength = szDataArr.length;
+            $.getScript(url2+szData,function(){
+              for(var i = 0;i<szDataLength-1;i++){
+                var stockNames = eval('v_'+szDataArr[i]);
+                stockNames = stockNames.split('~');
+                var stockMarket = stockNames[0];
+                stockMarket = stockMarket === '1'? 'sh':'sz';
+                var stockCode = stockNames[2];
+                var stockName = stockNames[1];
+                var stockZxj = stockNames[3];
+                var stockZdf = stockNames[32];
+                var stockZde = stockNames[31];
+                stockHtml += '<tr><td><a href="http://gu.qq.com/'+stockMarket+stockCode+'" target="_blank" class="no">'+stockName+'</a><td>'+stockZxj+'</td><td>+'+stockZdf+'%</td><td>+'+stockZde+'</td></td></tr>'
+              }
+              $('#shangzheng').html(stockHtml);
+              isGetSz = false;
+            });
+          });
+        }
+      }
+    }
+    getSz();
+
+    // 恒指
+    function getGg(){
+      // var url = 'http://stock.gtimg.cn/data/hk_rank.php?board=main_all&metric=change_rate&order=desc&pageSize=5&reqPage=1&var_name=d2';
+      var url = 'https://proxyplus.finance.qq.com/webifzqgtimg/appstock/rank/ranking/hkrank?t=main_all&type=change_rate&p=1&o=0&l=5&_var=d3'
+
+      if(getNum%2==0){
+        if(isGetGg){
+          $.getScript(url,function(){
+            // if(d2.data["page_data"].length == 0){
+            if(d3.data.data.length == 0){
+              $('#hengzhi').html("\u65e0\u6570\u636e");
+            }else{
+              var aStock = '';
+              var stockHtml = '';
+              // var stockLength = d2.data["page_data"].length;
+              var stockLength = d3.data.data.length;
+              for(var i=0;i<stockLength;i++){
+                // var aStock = d2.data["page_data"][i];
+                var aStock = d3.data.data[i];
+                // aStock = aStock.split('~');
+                var stockCode = aStock[0];
+                var stockName = aStock[1];
+                var stockZxj = aStock[2];
+                var stockZdf = aStock[3];
+                var stockZde = aStock[4];
+                stockHtml += '<tr><td><a href="http://gu.qq.com/hk'+stockCode+'" target="_blank" class="no">'+stockName+'</a><td>'+stockZxj+'</td><td>+'+stockZdf+'%</td><td>+'+stockZde+'</td></td></tr>'
+              }
+              $('#hengzhi').html(stockHtml);
+              isGetGg = false;
+            }
+          });
+        }
+      }
+
+    }
+
+    // 道指
+    function getMg(){
+      // var url = 'http://stock.gtimg.cn/data/index.php?appn=usRank&t=IMP/zdf&p=1&o=-1&l=5&v=d3';
+      var url = 'https://proxyplus.finance.qq.com/webifzqgtimg/appstock/rank/ranking/usrank?t=IMP/zdf&p=1&o=0&l=5&_var=d3';
+      if(getNum%2==0){
+        if(isGetMg){
+          $.getScript(url,function(){
+            // if(d3.data["result"].length == 0){
+            if(d3.data.data.length == 0){
+              $('#daozhi').html("\u65e0\u6570\u636e");
+            }else{
+              var aStock = '';
+              var stockHtml = '';
+              // var stockLength = d3.data["result"].length;
+              var stockLength = d3.data.data.length;
+              for(var i=0;i<stockLength;i++){
+                // var aStock = d3.data["result"][i];
+                var aStock = d3.data.data[i];
+                var stockCode = aStock[0];
+                var stockName = aStock[2];
+                var stockZxj = aStock[3];
+                var stockZdf = aStock[4];
+                var stockZde = aStock[5];
+                stockHtml += '<tr><td><a href="http://gu.qq.com/astock/ggcx/'+stockCode+'.htm" target="_blank" class="no">'+stockName+'</a><td>'+stockZxj+'</td><td>+'+stockZdf+'%</td><td>+'+stockZde+'</td></td></tr>'
+              }
+              $('#daozhi').html(stockHtml);
+              isGetMg = false;
+            }
+          });
+        }
+      }
+    }
+
+    $("#loginOut").click(function(){
+
+      __.app.qindex.pStock.clearCookie();
+
+    })
+
+  })
+
+},100)/*  |xGv00|98230301500e76ad1f90fa111ed17798 */

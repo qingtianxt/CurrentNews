@@ -5,6 +5,7 @@ import java.util.List;
 
 import constant.constant;
 import dao.newsPicDao;
+import dao.newsTypeDao;
 import domain.newsPic;
 import domain.pageBean;
 
@@ -27,21 +28,28 @@ public class newsPicService {
 	public pageBean<newsPic> listByPage(int currPage) throws SQLException {
 		List<newsPic> list =null;
 		newsPicDao nd = new newsPicDao();
+		newsTypeDao nt = new newsTypeDao();
 		int totalCount =nd.count();
 		int pageSize = constant.NEWSPIC_PAGESIZE;
 		list =nd.getByPage(currPage,pageSize);
+		for (newsPic n : list) {
+			n.setNewsType(nt.getById(n.getNewsType_id()));
+		}
 		pageBean<newsPic> page =new pageBean<>(list, totalCount, currPage, pageSize);
 		return page;
 	}
 	/**
-	 * 获取新闻的详细信息
+	 * 获取新闻的详细信息,包括新闻的分类
 	 * @param id
 	 * @return
 	 * @throws SQLException 
 	 */
 	public newsPic getById(int id) throws SQLException {
 		newsPicDao nd = new newsPicDao();
-		return nd.getById(id);
+		newsTypeDao ns =new newsTypeDao();
+		newsPic n = nd.getById(id);
+		n.setNewsType(ns.getById(n.getNewsType_id()));
+		return n;
 	}
 	/**
 	 * 更新图片新闻内容
@@ -61,5 +69,19 @@ public class newsPicService {
 		newsPicDao nd = new newsPicDao();
 		nd.delete(id);
 	}
+	/**
+	 * 获取所有的新闻信息
+	 * @return
+	 * @throws SQLException 
+	 */
+	public pageBean<newsPic> getAllByPage(int currPage) throws SQLException {
+		newsPicDao nd = new newsPicDao();
+		int count = nd.count();
+		int pageSize = constant.NEWSPIC_PAGESIZE;
+		List<newsPic> list = nd.getByPage(currPage, pageSize);
+		pageBean<newsPic> page =new pageBean<>(list, count, currPage, pageSize);
+		return page;
+	}
+	
 	
 }
