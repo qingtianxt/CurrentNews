@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,9 +21,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 
 import constant.constant;
+import domain.Collect;
 import domain.adminUser;
 import domain.newsPic;
 import domain.pageBean;
+import domain.user;
+import service.CollectService;
 import service.newsPicService;
 import utils.DateUtils;
 import utils.StringUtil;
@@ -174,8 +178,9 @@ public class NewsPicServlet extends BaseServlet {
 		String status = request.getParameter("status");
 		int id = StringUtil.StringToInt( request.getParameter("id"));
 		newsPicService ns = new newsPicService();
+		newsPic n =new newsPic();
 		try {
-			newsPic n= ns.getById(id);
+			n= ns.getById(id);
 			System.out.println("获取图片新闻详细信息成功，id为"+id);
 			request.setAttribute(constant.NEWSPIC_BEAN, n);
 		} catch (SQLException e) {
@@ -183,7 +188,33 @@ public class NewsPicServlet extends BaseServlet {
 			System.out.println("获取图片新闻详细信息失败");
 		}
 		if("1".equals(status)){
-			return "/admin/newsPic/details.jsp";
+			int sta =0;
+			CollectService cs =new CollectService();
+			
+			user u =(user) request.getSession().getAttribute(constant.SESSION_USER);
+			if(null!=u){
+				List<Collect> list =new ArrayList<>();
+				try {
+					list = cs.getCollect(u.getId());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				System.out.println(list.size());
+				if(null!=list){
+					for (Collect c : list) {
+						if(c.getNews_id()==n.getId()){
+							sta=1;
+							break;
+						}
+						
+					}
+					System.out.println("sta" + sta);
+					request.setAttribute(constant.COLLECT_STATUS, sta);
+				}
+			}
+			
+			
+			return "/front/details.jsp";
 		}else{
 			return "/admin/newsPic/details.jsp";
 		}

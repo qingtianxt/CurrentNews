@@ -7,7 +7,9 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
 import constant.constant;
+import dao.CollectDao;
 import dao.userDao;
+import domain.Collect;
 import domain.pageBean;
 import domain.user;
 import utils.MailUtils;
@@ -54,7 +56,14 @@ public class userService {
 	 */
 	public user getByUserName(String username) throws SQLException {
 		userDao ud = new userDao();
-		return ud.getByUserName(username);
+		
+		user u = ud.getByUserName(username);
+		if(u!=null){
+			CollectDao cd =new CollectDao();
+			List<Collect> list =cd.getCollectByUser(u.getId());
+			u.setCollect(list);
+		}
+		return u;
 	}
 	/**
 	 * 分页获取用户信息

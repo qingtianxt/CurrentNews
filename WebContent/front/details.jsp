@@ -267,16 +267,62 @@
 			<div class="main">
 				<div class="head" bosszone="ws_tt">
 					<div id="subHot">
-
-						<h2>
-							<a target="_blank" href="">展示最新消息</a>
-						</h2>
+						<script type="text/javascript">
+								function updatecollect(obj){
+										//alert(1);
+										var names= obj.name.split("#");
+										//alert(names);
+										$.post("collect",{
+											method:"updateStatus",
+											news_id:names[0],
+											user_id:names[1],
+											status:names[2]
+										},function(data){
+											//alert(3);
+											if(data!=null){
+												//alert(data);
+												datas =data.split("#");
+												$("#collect1").empty();
+												if(datas[2]=="0"){
+													var t = "<h2><a href='javascript:void(0)' onclick='updatecollect(this)' name='"+datas[0]+"#"+datas[1]+"#"+datas[2]+"'>已收藏</a></h2>";
+													//alert(t);
+													$("#collect1").html(t);
+												}else{
+													//alert(datas[2]);
+													var t = "<h2><a href='javascript:void(0)' onclick='updatecollect(this)' name='"+datas[0]+"#"+datas[1]+"#"+datas[2]+"'>收藏</a></h2>";
+													//alert(t);
+													$("#collect1").html(t);
+												}
+											}
+										}, "json");
+								}
+							</script>
+						<div id="collect1">
+							<c:if test="${not empty session_user }">
+								<c:if test='${collect_status == 1 }'>
+									<h2>
+										<a href="javascript:void(0)"
+											onclick="updatecollect(this)"
+											name="${newsPic_bean.id }#${session_user.id}#0">已收藏</a>
+									</h2>
+								</c:if>
+								<c:if test='${collect_status ==0}'>
+									<h2>
+										<a href="javascript:void(0)"
+											onclick="updatecollect(this)"
+											name="${newsPic_bean.id }#${session_user.id}#1">收藏</a>
+									</h2>
+								</c:if>
+							</c:if>
+						</div>
 
 
 					</div>
 					<div>
 						<div class="container">
 							<h1>新闻详情</h1>
+
+
 							<div class="col-md-12">
 								<img class="img-rounded" alt="新闻图片"
 									src="${pageContext.request.contextPath }/${newsPic_bean.pic}" />

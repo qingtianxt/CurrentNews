@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class user implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -17,6 +18,20 @@ public class user implements Serializable{
 	private String code;//” œ‰º§ªÓ¬Î
 	
 	private String create_date;
+	private List<Collect> collect;
+	
+
+	public List<Collect> getCollect() {
+		return collect;
+	}
+
+	public void setCollect(List<Collect> collect) {
+		this.collect = collect;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public int getId() {
 		return id;

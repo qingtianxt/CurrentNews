@@ -495,7 +495,7 @@
 		</c:if>
 		<c:if test="${not empty session_user }">
 			<div align="right">
-				欢迎 ${session_user.username }回来 &nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath }/user?method=userinfo">用户中心</a>
+				欢迎 ${session_user.username }回来 &nbsp;&nbsp;&nbsp; <a href="${pageContext.request.contextPath }/user?method=userinfoUI">用户中心</a>
 				&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath }/user?method=logout">注销</a>
 			</div>
 		</c:if>

@@ -81,4 +81,21 @@ public interface constant {
 	 * 国际新闻前四条
 	 */
 	String WORLDNEWS ="worldNews";
+	/**
+	 * 收藏状态
+	 */
+	String COLLECT_STATUS ="collect_status";
+	/**
+	 * 收藏内容每页的条数
+	 */
+	int COLLECT_PAGESIZE =4;
+	
+	/**
+	 * 收藏的pagingBean
+	 */
+	String COLLECT_PAGINGBEAN ="collect_pagingBean";
+	/**
+	 * 收藏的bean
+	 */
+	String COLLECT_BEAN ="collect_bean";
 }

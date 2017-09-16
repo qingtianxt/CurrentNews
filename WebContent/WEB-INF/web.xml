@@ -96,4 +96,14 @@
     <servlet-name>FrontNewsServlet</servlet-name>
     <url-pattern>/frontNews</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CollectServlet</display-name>
+    <servlet-name>CollectServlet</servlet-name>
+    <servlet-class>servlet.CollectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CollectServlet</servlet-name>
+    <url-pattern>/collect</url-pattern>
+  </servlet-mapping>
 </web-app>

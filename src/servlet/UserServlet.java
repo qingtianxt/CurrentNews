@@ -120,7 +120,8 @@ public class UserServlet extends BaseServlet {
 				if (user.getPassword().equals(MD5Utils.md5(MD5Utils.md5(password) + user.getSalt()))) {
 					System.out.println("登陆成功");
 					request.getSession().setAttribute(constant.SESSION_USER, user);
-
+					response.sendRedirect(request.getContextPath()+"/hello");
+						return null;
 				} else {
 					request.setAttribute("msg", "用户名或密码错误");
 					System.out.println("用户名或密码错误");
@@ -270,6 +271,14 @@ public class UserServlet extends BaseServlet {
 		request.getSession().invalidate();
 		response.sendRedirect(request.getContextPath()+"/hello");
 		return null;
+	}
+	public String userinfoUI(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		return "front/main.jsp";
+	}
+	public String addUI(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		return "/front/user/userinfo.jsp";
 	}
 	
 }

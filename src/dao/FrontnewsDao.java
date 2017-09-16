@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -13,7 +12,6 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import domain.newsPic;
 import utils.DataSourceUtils;
-import utils.DateUtils;
 
 public class FrontnewsDao {
 /**
